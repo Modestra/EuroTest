@@ -27,5 +27,10 @@ export default defineConfig({
       '@pages': fileURLToPath(new URL('./src/pages', import.meta.url)),
       '@assets': fileURLToPath(new URL('./src/app/assets', import.meta.url))
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {}
+    }
   }
 })

@@ -5,3 +5,8 @@
   --color-text-2: rgba(154, 168, 186, 1);
   --background-color-button: rgba(45, 118, 249, 1);
 }
+
+@font-face {
+  font-family: Fira Sans Condensed;
+  src: url(../assets/font/FiraSansCondensed-Regular.ttf);
+}
