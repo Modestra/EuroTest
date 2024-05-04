@@ -1,0 +1,7 @@
+:root {
+  --background-color-100: rgba(36, 37, 47, 1);
+  --background-color-75: rgba(49, 51, 65, 1);
+  --color-text-1: rgba(255, 255, 255, 1);
+  --color-text-2: rgba(154, 168, 186, 1);
+  --background-color-button: rgba(45, 118, 249, 1);
+}
