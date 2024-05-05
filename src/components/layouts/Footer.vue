@@ -7,11 +7,12 @@
           <img src="../../app/assets/logo.svg" alt="" />
           <p>Веб-разработка и усиление IT-команд</p>
         </div>
+        <!--
         <div class="info__item">
           <a href="">+7 999 123 45 67</a><a href="">Агентство</a><a href="">Блог</a>
           <a href="">hello@cyberia.studio</a><a href="">Услуги</a><a href="">Контанты</a>
           <a href="">ул.Ярных,д.35,оф.10</a><a href="">Кейсы</a>
-        </div>
+        </div>-->
       </section>
     </div>
   </footer>

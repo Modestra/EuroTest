@@ -40,4 +40,14 @@ header nav {
   display: flex;
   justify-content: space-around;
 }
+@media (max-width: 376px) {
+  header {
+    width: 85vw;
+    display: grid;
+    grid-template-columns: 0.8fr 0.2fr;
+  }
+  header nav {
+    display: none;
+  }
+}
 </style>
