@@ -4,11 +4,11 @@
     <img src="../../app/assets/logo.svg" alt="" />
     <nav>
       <ul class="links">
-        <li><a href="">Агенство</a></li>
-        <li><a href="">Услуги</a></li>
-        <li><a href="">Кейсы</a></li>
-        <li><a href="">Блог</a></li>
-        <li><a href="">Контанты</a></li>
+        <li><a href="" class="link">Агенство</a></li>
+        <li><a href="" class="link">Услуги</a></li>
+        <li><a href="" class="link">Кейсы</a></li>
+        <li><a href="" class="link">Блог</a></li>
+        <li><a href="" class="link">Контанты</a></li>
       </ul>
     </nav>
   </header>
@@ -23,7 +23,8 @@ header {
   margin-top: 30px;
   margin-bottom: 30px;
   display: grid;
-  grid-template-columns: 0.2fr 0.6fr 0.2fr;
+  align-items: center;
+  grid-template-columns: 0.3fr auto;
 }
 header img {
   width: 131px;
@@ -31,6 +32,7 @@ header img {
 }
 header nav {
   width: 100%;
+  max-width: 521px;
   height: 36px;
   display: flex;
   align-items: center;
@@ -39,6 +41,20 @@ header nav {
   width: 100%;
   display: flex;
   justify-content: space-around;
+}
+.link {
+  color: var(--color-text-1);
+}
+
+@media (max-width: 769px) {
+  header {
+    width: 85vw;
+    display: grid;
+    grid-template-columns: 0.4fr 0.6fr;
+  }
+  .link {
+    font-size: 2.2vw;
+  }
 }
 @media (max-width: 376px) {
   header {

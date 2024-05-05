@@ -1,6 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="block"></div>
+  <figure class="block">
+    <span class="category"></span>
+    <img :src="project.image" alt="" />
+  </figure>
 </template>
 
 <script setup>
@@ -31,10 +34,20 @@ const props = defineProps({
 .block {
   min-width: 387px;
   min-height: 378px;
+  display: flex;
+  flex-direction: row-reverse;
   background-color: var(--color-text-2);
+  border-radius: 12px;
 }
 .block img {
   width: 100%;
   height: 100%;
+}
+.category {
+  position: absolute;
+  width: 128px;
+  height: 128px;
+}
+@media (max-width: 769px) {
 }
 </style>
