@@ -34,8 +34,7 @@ const props = defineProps({
 .block {
   min-width: 387px;
   min-height: 378px;
-  display: flex;
-  flex-direction: row-reverse;
+  position: relative;
   background-color: var(--color-text-2);
   border-radius: 12px;
 }
@@ -44,10 +43,15 @@ const props = defineProps({
   height: 100%;
 }
 .category {
-  position: absolute;
+  position: relative;
   width: 128px;
   height: 128px;
 }
 @media (max-width: 769px) {
+}
+@media (max-width: 426px) {
+  .block {
+    min-width: 320px;
+  }
 }
 </style>

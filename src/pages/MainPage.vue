@@ -1,9 +1,12 @@
 <template>
-  <Header></Header>
-  <div class="breadcrumbs">Главная/Кейсы</div>
+  <BurgerMenu v-if="isActiveMenu"></BurgerMenu>
+  <Header @click="setActiveMenu" :active="isActiveMenu"></Header>
+  <Breadcrumbs :item="$route.name"></Breadcrumbs>
   <main>
     <h1>Кейсы</h1>
-    <section></section>
+    <section>
+      <div class="category" v-for="category in categories"></div>
+    </section>
     <div class="block__container">
       <Project project="{{ project }}" v-for="project in projects" />
     </div>
@@ -26,7 +29,7 @@
       <section class="form__grid">
         <fieldset class="form__textarea">
           <legend>Сообщение</legend>
-          <input />
+          <textarea></textarea>
         </fieldset>
       </section>
       <section class="form__confirm">
@@ -44,11 +47,16 @@
 <script lang="ts" setup>
 import Header from '@components/layouts/Header.vue'
 import Footer from '@components/layouts/Footer.vue'
+import Breadcrumbs from '@components/Breadcrumbs.vue'
+import BurgerMenu from '@components/BurgerMenu.vue'
 import { onActivated, ref } from 'vue'
-import { getProjects } from '@/services/ProductsService'
+import { getCategories, getProjects } from '@/services/ProductsService'
 import Project from '@components/Project.vue'
 
 const projects = ref([])
+const categories = ref([])
+
+const isActiveMenu = ref(false)
 
 onActivated(() => {
   getProjects().then((resp) => {
@@ -61,6 +69,12 @@ getProjects().then((resp) => {
   projects.value = resp.data.items
   console.log(projects.value)
 })
+getCategories().then((resp) => {
+  categories.value = resp.data.items
+})
+function setActiveMenu() {
+  isActiveMenu.value = !isActiveMenu.value
+}
 </script>
 
 <style lang="scss" scoped>
@@ -78,11 +92,6 @@ main h1 {
   text-align: left;
   color: var(--color-text-1);
 }
-.breadcrumbs {
-  width: 70vw;
-  height: 17px;
-  margin-bottom: 120px;
-}
 .block__container {
   width: 70vw;
   margin-top: 30px;
@@ -96,6 +105,7 @@ main h1 {
   width: 100%;
   height: 61px;
   border: 1px solid var(--color-text-2);
+  border-radius: 10px;
   &__textarea {
     height: 100%;
     height: 139px;
@@ -106,9 +116,12 @@ main h1 {
     margin-left: 20px;
     padding: 5px;
   }
-  &__textarea input {
+  &__textarea textarea {
     width: 100%;
     height: 100%;
+  }
+  &__textarea textarea:focus {
+    outline: none;
   }
   &__grid {
     width: 70vw;
@@ -151,6 +164,8 @@ main h1 {
 .form input {
   width: 100%;
   height: 100%;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }
 .form legend {
   margin-left: 20px;
