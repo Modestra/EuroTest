@@ -4,11 +4,18 @@
   <Breadcrumbs :item="$route.name"></Breadcrumbs>
   <main>
     <h1>Кейсы</h1>
-    <section>
-      <div class="category" v-for="category in categories"></div>
+    <section class="category__grid">
+      <button
+        class="category"
+        @click="fil(category.name)"
+        v-for="category in categories"
+        :key="category.id"
+      >
+        <p>{{ category.name }}</p>
+      </button>
     </section>
     <div class="block__container">
-      <Project project="{{ project }}" v-for="project in projects" />
+      <Project project="{{ project }}" v-for="project in projects.filted" :key="project.id" />
     </div>
     <h1>Расскажите о вашем проекте</h1>
     <form>
@@ -44,40 +51,69 @@
   <Footer></Footer>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import Header from '@components/layouts/Header.vue'
 import Footer from '@components/layouts/Footer.vue'
 import Breadcrumbs from '@components/Breadcrumbs.vue'
 import BurgerMenu from '@components/BurgerMenu.vue'
-import { onActivated, ref } from 'vue'
+import { useCategoryStore } from '@/stores/category'
+import { onActivated, ref, watchEffect } from 'vue'
 import { getCategories, getProjects } from '@/services/ProductsService'
 import Project from '@components/Project.vue'
+import { useCounterStore } from '@/stores/projects'
 
-const projects = ref([])
+const projects = useCounterStore()
 const categories = ref([])
 
 const isActiveMenu = ref(false)
 
-onActivated(() => {
-  getProjects().then((resp) => {
-    projects.value = resp.data
-    console.log(projects.value)
-  })
-})
-//Работает
+function setActiveMenu() {
+  isActiveMenu.value = !isActiveMenu.value
+}
 getProjects().then((resp) => {
-  projects.value = resp.data.items
-  console.log(projects.value)
+  projects.setData(resp.data.items)
+  console.log(projects.projects)
 })
 getCategories().then((resp) => {
   categories.value = resp.data.items
 })
-function setActiveMenu() {
-  isActiveMenu.value = !isActiveMenu.value
+
+function fil(cat) {
+  console.log(cat)
+  projects.filterList(cat)
 }
 </script>
 
 <style lang="scss" scoped>
+.category {
+  width: auto;
+  height: 49px;
+  border-radius: 7px;
+  background-color: var(--background-color-75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__grid {
+    width: 100%;
+    min-height: 49px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(49px, 1fr));
+  }
+  &--active {
+    background-color: #2d76f9;
+  }
+}
+.category p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28.8px;
+  text-align: left;
+}
+
 main {
   width: 70vw;
   display: flex;

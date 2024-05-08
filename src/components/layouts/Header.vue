@@ -59,6 +59,14 @@ header nav {
 .menu {
   display: none;
 }
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.link {
+  color: var(--color-text-1);
+}
 
 //Бургер меню
 
@@ -82,7 +90,6 @@ header nav {
   height: 32px;
   width: 32px;
   cursor: pointer;
-  background-color: aqua;
 }
 .line {
   position: absolute;
