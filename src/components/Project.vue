@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <figure class="block">
-    <span class="category"></span>
+  <div class="block">
     <img :src="project.image" alt="" />
-  </figure>
+    <span class="category">{{ project.title }}</span>
+  </div>
 </template>
 
 <script setup>
@@ -14,8 +14,6 @@ const props = defineProps({
     slug: String,
     project_url: null,
     image: String,
-    image_dark: String,
-    description: String,
     geo: {
       lat: null,
       lng: null
@@ -28,6 +26,8 @@ const props = defineProps({
     ]
   }
 })
+
+console.log(props.project.image)
 </script>
 
 <style lang="scss" scoped>
@@ -35,15 +35,28 @@ const props = defineProps({
   min-width: 387px;
   min-height: 378px;
   position: relative;
+  display: inline-block;
   background-color: var(--color-text-2);
   border-radius: 12px;
 }
 .block img {
   width: 100%;
   height: 100%;
+  border-radius: 12px;
 }
 .category {
-  position: relative;
+  position: absolute;
+  background-color: gray;
+  display: flex;
+  color: var(--color-text-1);
+  align-items: center;
+  justify-content: center;
+  font-family: Fira Sans Condensed;
+  font-weight: 600;
+  line-height: 28.8px;
+
+  top: 25px;
+  right: 25px;
   width: 128px;
   height: 128px;
 }

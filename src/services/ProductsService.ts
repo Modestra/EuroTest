@@ -1,3 +1,4 @@
+import type { FeedbackForm } from '@/entities/feedback'
 import { HTTP } from '@app/http'
 
 export function getProjects() {
@@ -14,4 +15,16 @@ export function getCategories() {
       'Content-Type': 'application/json'
     }
   })
+}
+
+export function postFeedback(form: FeedbackForm) {
+  return HTTP.post(
+    `/feedbacks?phone=${form.phone}&email=${form.email}&message=${form.message}`,
+    form,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
 }

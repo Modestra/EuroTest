@@ -15,10 +15,10 @@
       </button>
     </section>
     <div class="block__container">
-      <Project project="{{ project }}" v-for="project in projects.filted" :key="project.id" />
+      <Project :project="project" v-for="project in projects.filted" :key="project.id" />
     </div>
     <h1>Расскажите о вашем проекте</h1>
-    <form>
+    <form @submit.prevent="SubmitEvent">
       <section class="form__grid">
         <fieldset class="form">
           <legend>Ваше имя</legend>
@@ -26,17 +26,17 @@
         </fieldset>
         <fieldset class="form">
           <legend>Email</legend>
-          <input />
+          <input v-model="form.email" />
         </fieldset>
         <fieldset class="form">
           <legend>Телефон</legend>
-          <input />
+          <input v-model="form.phone" />
         </fieldset>
       </section>
       <section class="form__grid">
         <fieldset class="form__textarea">
           <legend>Сообщение</legend>
-          <textarea></textarea>
+          <textarea v-model="form.message"></textarea>
         </fieldset>
       </section>
       <section class="form__confirm">
@@ -56,14 +56,19 @@ import Header from '@components/layouts/Header.vue'
 import Footer from '@components/layouts/Footer.vue'
 import Breadcrumbs from '@components/Breadcrumbs.vue'
 import BurgerMenu from '@components/BurgerMenu.vue'
-import { useCategoryStore } from '@/stores/category'
-import { onActivated, ref, watchEffect } from 'vue'
-import { getCategories, getProjects } from '@/services/ProductsService'
+import { ref } from 'vue'
+import { getCategories, getProjects, postFeedback } from '@/services/ProductsService'
 import Project from '@components/Project.vue'
 import { useCounterStore } from '@/stores/projects'
 
 const projects = useCounterStore()
 const categories = ref([])
+
+const form = ref({
+  phone: '',
+  email: '',
+  message: ''
+})
 
 const isActiveMenu = ref(false)
 
@@ -72,15 +77,24 @@ function setActiveMenu() {
 }
 getProjects().then((resp) => {
   projects.setData(resp.data.items)
-  console.log(projects.projects)
 })
 getCategories().then((resp) => {
   categories.value = resp.data.items
 })
 
 function fil(cat) {
-  console.log(cat)
   projects.filterList(cat)
+  console.log(projects.filted)
+}
+
+function SubmitEvent() {
+  let fd = new FormData()
+  Object.entries(form.value).forEach(([key, value]) => {
+    fd.append(key, value)
+  })
+  postFeedback(fd).then((resp) => {
+    console.log('Форма передалась успешно')
+  })
 }
 </script>
 
