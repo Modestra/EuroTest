@@ -2,7 +2,10 @@
 <template>
   <div class="block">
     <img :src="project.image" alt="" />
-    <span class="category">{{ project.title }}</span>
+    <span class="category">
+      {{ project.title }}
+      <p class="category__desc">{{ project.title }}</p>
+    </span>
   </div>
 </template>
 
@@ -26,8 +29,6 @@ const props = defineProps({
     ]
   }
 })
-
-console.log(props.project.image)
 </script>
 
 <style lang="scss" scoped>
@@ -59,12 +60,22 @@ console.log(props.project.image)
   right: 25px;
   width: 128px;
   height: 128px;
+  &__desc {
+    display: none;
+  }
 }
 @media (max-width: 769px) {
 }
 @media (max-width: 426px) {
   .block {
     min-width: 320px;
+  }
+  .category {
+    width: 100%;
+    height: 100px;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 }
 </style>

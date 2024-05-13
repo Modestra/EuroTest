@@ -22,21 +22,21 @@
       <section class="form__grid">
         <fieldset class="form">
           <legend>Ваше имя</legend>
-          <input />
+          <input placeholder="Имя*" />
         </fieldset>
         <fieldset class="form">
           <legend>Email</legend>
-          <input v-model="form.email" />
+          <input placeholder="Email*" v-model="form.email" />
         </fieldset>
         <fieldset class="form">
           <legend>Телефон</legend>
-          <input v-model="form.phone" />
+          <input placeholder="Телефон*" v-model="form.phone" />
         </fieldset>
       </section>
       <section class="form__grid">
         <fieldset class="form__textarea">
           <legend>Сообщение</legend>
-          <textarea v-model="form.message"></textarea>
+          <textarea placeholder="Сообщение..." v-model="form.message"></textarea>
         </fieldset>
       </section>
       <section class="form__confirm">
@@ -84,7 +84,6 @@ getCategories().then((resp) => {
 
 function fil(cat) {
   projects.filterList(cat)
-  console.log(projects.filted)
 }
 
 function SubmitEvent() {
@@ -92,9 +91,13 @@ function SubmitEvent() {
   Object.entries(form.value).forEach(([key, value]) => {
     fd.append(key, value)
   })
-  postFeedback(fd).then((resp) => {
-    console.log('Форма передалась успешно')
-  })
+  postFeedback(fd)
+    .then((resp) => {
+      console.log('Форма передалась успешно')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
 }
 </script>
 
@@ -127,7 +130,9 @@ function SubmitEvent() {
   line-height: 28.8px;
   text-align: left;
 }
-
+.category:active {
+  background-color: #2d76f9;
+}
 main {
   width: 70vw;
   display: flex;
@@ -217,6 +222,9 @@ main h1 {
   padding-left: 10px;
   padding-bottom: 5px;
 }
+::-webkit-input-placeholder {
+  color: var(--background-color-100);
+}
 .form legend {
   margin-left: 20px;
   padding: 5px;
@@ -232,6 +240,15 @@ main h1 {
   }
   .form__grid {
     width: 85vw;
+  }
+  .form legend {
+    display: none;
+  }
+  .form__textarea legend {
+    display: none;
+  }
+  ::-webkit-input-placeholder {
+    color: var(--color-text-2);
   }
   .breadcrumbs {
     width: 85vw;
