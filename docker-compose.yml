@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - react
+  react:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    
