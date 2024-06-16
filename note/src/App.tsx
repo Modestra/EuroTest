@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="card">
       <div className="card-header">
-        Рекомендуемые
+        Записки
       </div>
       <div className="card-body">
         <div className="grid">
@@ -20,6 +20,8 @@ function App() {
       </div>
   </div>
   )
+
+  
 }
 
 export default App
